@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+<head>
+    <title>Code Player</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    
+    
+
+      
+
+    <style type="text/css">
+
+    	#nav{
+    		width: 100%;
+    		height: 50px;
+    		background-color: #32508C;
+    		margin: 0 auto 0 auto;
+    		padding-top:0;
+    		position: absolute;
+    		top:0;
+    		left:0;
+    	}
+     	#header{
+     		font-family: 'Shadows Into Light', helvetica;
+     		font-size: 32px;
+     		font-weight:200;
+     		float:left;
+     		color: #dddddd;
+     		margin-top:-2px;
+     		padding-top:0;
+     		margin-left: 25px;
+     		text-shadow: .04em .04em 0 #555555;
+     		letter-spacing: 2px;
+     	}
+     	#toggle{
+     		width:360px;
+     		margin: 0 auto;
+     		
+     	}
+     	.toggle{
+     		color: #ffffff;
+     		background-color: gray;
+     		font-family: 'Poiret One', cursive;
+     		font-weight: 200;
+     		font-size:27px;
+     		float:left;
+     		margin:-10px auto 0 auto;
+     		list-style: none;
+     		padding: 3px 10px 3px 10px;
+     		border: 1px solid #bbbbbb;
+     	}
+     	
+     	.selected{
+     		background-color: #ffffff;
+     		color: #32508C;	
+     	}
+     	#button{
+     		height: 40px;
+     		width: 55px;
+     		float:right;
+     		font-family: 'Poiret One', cursive;
+     		font-size: 25px;
+     		font-weight: 400;
+     		margin-right: 25px;
+     		margin-top: -10px;
+     		text-align: left;
+     	}
+     	#canvas{    		
+     		margin-left:-8px;
+     	}
+     	#canvas p{
+     		font-family: 'Poiret One', cursive;
+     		color: black;
+     		text-align: right;
+     		font-size: 30px;
+     		margin-top:0;
+     		margin-bottom:0;
+     		padding-right: 10px;
+     		border-right: 1px solid #636B73;
+     	}
+     	.codeContainer{
+     		width:25%;
+     		float:left;
+     		margin-top:42px;
+     		display:none;
+     		padding-bottom:37px;
+     	}
+     	#HTMLContainer{
+     		display:block;
+     	}
+     	.textArea{
+     		width:97%;
+     		height:100%;
+     		font-family: monotype;
+     		font-size: 90%;
+     		padding: 5px;
+     	}
+     	
+     	#CSSContainer{
+     		display:block;
+     	}
+     	
+     	#JSContainer{
+     		display:block;
+     	}
+     	#RESULTContainer{
+     		display:block;
+     	}
+     	iframe{
+
+     	}
+
+    </style>    
+      
+     
+
+</head>
+
+	<body>
+		<div id="nav">
+		<h1 id="header">CodePlayer</h1>
+		<div id="toggle">
+			<ul class="nav-tabs">
+				<li class="toggle selected">HTML</li>
+				<li class="toggle selected">CSS</li>
+				<li class="toggle selected">JS</li>
+				<li class="toggle selected">RESULT</li>
+			</ul>
+		</div>
+		 <button id="button" type="button">Run</button> 
+		</div>
+		<div id="canvas">
+		<div class="codeContainer" id="HTMLContainer"><p>html</p><textarea class="textArea" id="htmlCode">html code</textarea></div>
+		<div class="codeContainer" id="CSSContainer"><p>css</p><textarea class="textArea" id="cssCode">css code</textarea></div>
+		<div class="codeContainer" id="JSContainer"><p>javascript</p><textarea class="textArea" id="jsCode">js code</textarea></div>
+		<div class="codeContainer" id="RESULTContainer"><p>result</p><iframe class="textArea" id="resultFrame"></iframe></div>
+		</div>
+
+
+
+
+		<script type="text/javascript">
+
+			/*to check the height of the window in the browser
+		var windowHeight=$(window).height();
+		alert(windowHeight);   */
+
+			var windowHeight=$(window).height();
+			var menuBarHeight=$("#nav").height();
+
+			var htmlCanvasHeight=windowHeight-menuBarHeight;
+			$(".codeContainer").height(htmlCanvasHeight+"px");
+			var cssCanvasHeight=windowHeight-menuBarHeight;
+			
+			
+
+
+		  	$(".toggle").click(function(){
+ 		 	$(this).toggleClass("selected"); 		 	
+ 		 	var activeDiv=$(this).html();
+ 		 	$("#"+activeDiv+"Container").toggle();
+
+ 		 	var showingDivs=$(".codeContainer").filter(function(){
+ 		 		return($(this).css("display") !="none");
+ 		 	}).length;
+ 		 	var width=100/showingDivs;
+ 		 	$(".codeContainer").width(width+"%");
+			});
+
+			$("#button").click(function(){
+				$("iframe").contents().find("html").html('<style>'+$("#cssCode").val()+'</style>'+$("#htmlCode").val());
+
+				document.getElementById("resultFrame").contentWindow.eval($("#jsCode").val());
+				eval($("#jsCode").val())
+
+			});
+
+			
+			
+ 		
+			
+
+
+ 		</script>
+
+
+    
+
+	</body>
+</html>
