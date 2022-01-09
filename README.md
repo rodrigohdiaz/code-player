@@ -1,5 +1,5 @@
 # code-player
-a website similar to codepen with area to write 'html', 'css' and 'javascript'
+This is a website similar to codepen with area to write 'html', 'css' and 'javascript'
 
 This is an ongoing project.
 
